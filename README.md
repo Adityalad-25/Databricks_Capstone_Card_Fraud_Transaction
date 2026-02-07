@@ -54,7 +54,7 @@ We utilized the industry-standard **Medallion Architecture**, which moves data t
 
 ### A. Connecting to Cloud Storage (ADLS)
 Instead of using legacy "Mount Points," We used **Unity Catalog Volumes**.
-We mapped the ADLS path `abfss://fraud-container@storageaccount.dfs.core.windows.net/` to a local Databricks path `/Volumes/fraud_lake/landing/incoming_data`.
+We mapped the ADLS path `abfss://<container_name>@<storage_account_name>.dfs.core.windows.net/` to a local Databricks path `/Volumes/fraud_lake/raw_landing/transactions`.
 * **Benefit:** This provides secure, governed access to files without hardcoding access keys in the notebook.
 
 ### B. The Master Pipeline (Orchestration)
