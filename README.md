@@ -118,7 +118,7 @@ target.alias("t").merge(
     * Access to an **ADLS Gen2** container (or DBFS).
 
 2.  **Upload Data:**
-    * Place the raw CSV files into the ADLS container path: `/landing/incoming_data`.
+    * Place the raw CSV files into the ADLS container path: `/raw_landing/transactions` and `/raw_landing/referneces`
 
 3.  **Run the Orchestrator:**
     * Open the notebook `00_Master_Pipeline_Orchestrator`.
