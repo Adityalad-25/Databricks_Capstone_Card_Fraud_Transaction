@@ -1,0 +1,225 @@
+{
+  "datasets": [
+    {
+      "name": "90a11332",
+      "displayName": "bi_daily_sales_summary",
+      "queryLines": [
+        "SELECT * FROM fraud_lakehouse.gold.bi_daily_sales_summary"
+      ]
+    },
+    {
+      "name": "147de9c2",
+      "displayName": "customer_360_profile",
+      "queryLines": [
+        "SELECT * FROM fraud_lakehouse.gold.customer_360_profile"
+      ]
+    },
+    {
+      "name": "fe36dc4e",
+      "displayName": "fact_transactions",
+      "queryLines": [
+        "SELECT * FROM fraud_lakehouse.gold.fact_transactions"
+      ]
+    },
+    {
+      "name": "68d22b0a",
+      "displayName": "suspicious_activity_report",
+      "queryLines": [
+        "SELECT * FROM fraud_lakehouse.gold.suspicious_activity_report"
+      ]
+    }
+  ],
+  "pages": [
+    {
+      "name": "cf12b622",
+      "displayName": "DashBoard_1",
+      "layout": [
+        {
+          "widget": {
+            "name": "fraud-transactions-by-card-type",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "fe36dc4e",
+                  "fields": [
+                    {
+                      "name": "card_type",
+                      "expression": "`card_type`"
+                    },
+                    {
+                      "name": "sum(fraud_flag)",
+                      "expression": "SUM(`fraud_flag`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "frame": {
+                "title": "Fraud Transactions by Card Type",
+                "showTitle": true
+              },
+              "widgetType": "bar",
+              "encodings": {
+                "x": {
+                  "fieldName": "card_type",
+                  "scale": {
+                    "type": "categorical",
+                    "sort": {
+                      "by": "y-reversed"
+                    }
+                  }
+                },
+                "y": {
+                  "fieldName": "sum(fraud_flag)",
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                }
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 0,
+            "width": 2,
+            "height": 5
+          }
+        },
+        {
+          "widget": {
+            "name": "fraud-rate-by-merchant-category",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "90a11332",
+                  "fields": [
+                    {
+                      "name": "merchant_category",
+                      "expression": "`merchant_category`"
+                    },
+                    {
+                      "name": "total_transactions",
+                      "expression": "`total_transactions`"
+                    },
+                    {
+                      "name": "fraud_count",
+                      "expression": "`fraud_count`"
+                    },
+                    {
+                      "name": "fraud_rate_percentage",
+                      "expression": "`fraud_rate_percentage`"
+                    }
+                  ],
+                  "disaggregated": true
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "frame": {
+                "title": "Fraud Rate by Merchant Category",
+                "showTitle": true
+              },
+              "widgetType": "bar",
+              "encodings": {
+                "x": {
+                  "fieldName": "merchant_category",
+                  "scale": {
+                    "type": "categorical"
+                  }
+                },
+                "y": {
+                  "fields": [
+                    {
+                      "fieldName": "total_transactions"
+                    },
+                    {
+                      "fieldName": "fraud_count"
+                    },
+                    {
+                      "fieldName": "fraud_rate_percentage"
+                    }
+                  ],
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                }
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 5,
+            "width": 6,
+            "height": 5
+          }
+        },
+        {
+          "widget": {
+            "name": "a5a3dfa0",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "147de9c2",
+                  "fields": [
+                    {
+                      "name": "sum(total_fraud_events)",
+                      "expression": "SUM(`total_fraud_events`)"
+                    },
+                    {
+                      "name": "home_country",
+                      "expression": "`home_country`"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "widgetType": "pie",
+              "encodings": {
+                "angle": {
+                  "fieldName": "sum(total_fraud_events)",
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                },
+                "color": {
+                  "fieldName": "home_country",
+                  "scale": {
+                    "type": "categorical"
+                  }
+                }
+              }
+            }
+          },
+          "position": {
+            "x": 2,
+            "y": 0,
+            "width": 3,
+            "height": 5
+          }
+        }
+      ],
+      "pageType": "PAGE_TYPE_CANVAS"
+    },
+    {
+      "name": "7b5bbea6",
+      "displayName": "Untitled page",
+      "pageType": "PAGE_TYPE_CANVAS"
+    }
+  ],
+  "uiSettings": {
+    "theme": {
+      "widgetHeaderAlignment": "ALIGNMENT_UNSPECIFIED"
+    },
+    "applyModeEnabled": false
+  }
+}
